@@ -1,0 +1,91 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    
+    
+    <link rel="stylesheet"
+ href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+ integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+ crossorigin="anonymous">
+    
+</head>
+<body> 
+
+<nav   class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+         <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/"><b>Accueil</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/getallclients"><b>Les clients</b></a>
+        </li>
+    
+        <li class="nav-item">
+          <a class="nav-link active" href="/getallaccountsc"><b>Compte CC</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/getallaccountse"><b>Compte CE</b></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="/getallemployees"><b>Les employées</b></a>
+        </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+<br>
+<br><br><br>
+	<div class="container">
+
+
+<a th:href="@{/Addaccountc}"> <button class="btn btn-danger">Ajout compte courant</button>
+					</a>
+ 
+		<br />
+		<br>
+				<br>
+		
+		<table class="table table-bordered" style="border: 1px solid black; border-collapse: separate;">
+			<thead>
+				<tr>
+					<td><b>Numéro Compte</b></td>
+					<td><b>DateCreation</b></td>
+										<td><b>Solde</b></td>
+										<td><b>Client<b></td>
+					<td><b>decouvert<b></td>
+										<td colspan="2"><center><b>Opération<b></center></td>
+					
+				</tr>
+			</thead>
+			<tr th:each="etudiant: ${accountsc}">			
+				<td type="hidden" th:text="${etudiant.numCompte}" />
+				<td th:text="${etudiant.dateCreation}" />
+								<td th:text="${etudiant.solde}" />
+								<td th:text="${etudiant.client.name}" />
+								
+								<td th:text="${etudiant.decouvert}" />
+								
+								<td><form th:action="@{/deleteac/{numCompte}(numCompte=${etudiant.numCompte})}" method="get">
+						<input type="hidden" name="numCompte" th:value="${etudiant.numCompte}">
+						<input type="hidden" name="dateCreation" th:value="${etudiant.dateCreation}">
+						<input type="hidden" name="client" th:value="${etudiant.client}">
+						<input type="hidden" name="decouvert" th:value="${etudiant.decouvert}">
+
+						<button type="submit" class="btn btn-danger">Supprimer</button>
+					</form></td>
+				
+					
+			</tr>
+		</table>
+	</div>
+</body>
+</html>
